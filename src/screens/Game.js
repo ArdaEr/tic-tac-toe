@@ -30,11 +30,21 @@ const theRewardGoesTo = whoIsWinner(board);
     let status;
     if(theRewardGoesTo && theRewardGoesTo != 'draw'){
         status = 'Winner: ' + theRewardGoesTo;
+        <button onClick = {() =>setBoard(Array(9).fill(null))}> New Game</button>
     } else if (theRewardGoesTo && theRewardGoesTo === 'draw'){
         status = "It's a " + theRewardGoesTo;
+        <button onClick = {() =>setBoard(Array(9).fill(null))}> New Game</button>
+           
     } else {
         status = 'Next player: ' + (movementX ? 'X' : 'O');
     }
+
+    
+         const returnBack = () => {
+        return (
+            <button onClick = {() =>setBoard(Array(9).fill(null))}> New Game</button>
+            );
+        } 
  
     return (
         <>
@@ -43,16 +53,12 @@ const theRewardGoesTo = whoIsWinner(board);
        
         <div style = {style}>
     <p>{status}</p>
+    <p>{returnBack()}</p>
 
         </div>
      
         </>
-        /* Restart butonu çalışmaları devam ediyor
-         const returnBack = () => {
-        return (
-            <button onClick = {() =>setBoard(Array(9).fill(null))}> New Game</button>
-            );
-        } */
+        /* */
         //     theRewardGoesTo ? 'Winner: '  + theRewardGoesTo : 'Your Turn: ' + (movementX ? 'X' : 'O')
         //     {returnBack()}
         //    `TheChamp: ${theRewardGoesTo} Your Turn: ${(movementX ? 'X' : 'O')}`
