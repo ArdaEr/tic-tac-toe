@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import GameBoard from '../components/GameBoard'
 import whoIsWinner from '../Answer'
+import ResetButton from '../components/ResetButton'
 
 
 
@@ -30,21 +31,24 @@ const theRewardGoesTo = whoIsWinner(board);
     let status;
     if(theRewardGoesTo && theRewardGoesTo != 'draw'){
         status = 'Winner: ' + theRewardGoesTo;
-        <button onClick = {() =>setBoard(Array(9).fill(null))}> New Game</button>
+        
     } else if (theRewardGoesTo && theRewardGoesTo === 'draw'){
         status = "It's a " + theRewardGoesTo;
-        <button onClick = {() =>setBoard(Array(9).fill(null))}> New Game</button>
+        
            
     } else {
         status = 'Next player: ' + (movementX ? 'X' : 'O');
     }
 
+    const returnBack = () => {
+        
+        setBoard(Array(9).fill(null));
+        setXisinTheCharge("X");
+       
+      };
+
     
-         const returnBack = () => {
-        return (
-            <button onClick = {() =>setBoard(Array(9).fill(null))}> New Game</button>
-            );
-        } 
+   
  
     return (
         <>
@@ -53,7 +57,7 @@ const theRewardGoesTo = whoIsWinner(board);
        
         <div style = {style}>
     <p>{status}</p>
-    <p>{returnBack()}</p>
+    <p><ResetButton onClick = {returnBack} /></p>
 
         </div>
      
