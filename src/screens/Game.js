@@ -7,26 +7,31 @@ import ResetButton from '../components/ResetButton'
 
 
 const Game = () => {
-const [board, setBoard] = useState(Array(9).fill(null));
+const [history, setHistory] = useState([Array(9).fill(null)]);
+const [stepNumber, setStepNumber] = useState(0);
 const [movementX, setXisinTheCharge] = useState(true);
-const theRewardGoesTo = whoIsWinner(board);
+const theRewardGoesTo = whoIsWinner(history[stepNumber]);
     const handleClick = (index) => {
-
-        const fakeBoard = [...board];
+        const timeInHistory = history.slice(0, stepNumber + 1);
+        const current = timeInHistory[stepNumber];
+        const fakeBoard = [...current];
          // kazanan true ise veya cevaplar yapıldıysa
         if (theRewardGoesTo || fakeBoard[index]) 
         {
             return;
         }
         
-
         fakeBoard[index] = movementX ? 'X' : 'O' ;
-        setBoard(fakeBoard);
+        setStepNumber(timeInHistory.length);
+        setHistory([...timeInHistory, fakeBoard]);
         setXisinTheCharge(!movementX);
         
-    }
-    
-  
+    };
+
+    const goBackUrMoves = (step) => {
+        setStepNumber(step);
+        setXisinTheCharge(step % 2 === 0)
+    };
 
     let status;
     if(theRewardGoesTo && theRewardGoesTo != 'draw'){
@@ -40,29 +45,31 @@ const theRewardGoesTo = whoIsWinner(board);
         status = 'Next player: ' + (movementX ? 'X' : 'O');
     }
 
-    const returnBack = () => {
-        
-        setBoard(Array(9).fill(null));
-        setXisinTheCharge("X");
-       
-      };
 
-    
-   
- 
+     const returnBack = () => (
+        history.map((_step, move) => {
+            const destination = move ? `Go to move#${move}`: `Go to start`;
+       
+        return (
+            <li key ={move}>
+                <button onClick = {() => goBackUrMoves(move)}>{destination}</button>
+            </li>
+        )
+       
+      })
+     );
     return (
         <>
-        <GameBoard buttons = {board} onClick = {handleClick}/>
+        <GameBoard buttons = {history[stepNumber]} onClick = {handleClick}/>
 
-       
-        <div style = {style}>
+         <div style = {style}>
     <p>{status}</p>
-    <p><ResetButton onClick = {returnBack} /></p>
-
-        </div>
-     
+    {returnBack()}
+   
+   
+         </div>
         </>
-        /* */
+      
         //     theRewardGoesTo ? 'Winner: '  + theRewardGoesTo : 'Your Turn: ' + (movementX ? 'X' : 'O')
         //     {returnBack()}
         //    `TheChamp: ${theRewardGoesTo} Your Turn: ${(movementX ? 'X' : 'O')}`

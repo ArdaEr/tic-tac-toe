@@ -7,9 +7,9 @@ import whoisWinner from '../Answer';
 const GameBoard = ({ buttons, onClick }) => (
     <div style = {style}>
         {buttons.map((button, index) => (
-            
-             <GameButton key = {index} value = {button} onClick ={() => onClick(index)} />
-            
+
+             <GameButton key = {index} value = {button} onClick ={() => onClick(index)} />   
+             
         ))}
     </div>
 )
