@@ -70,9 +70,7 @@ const theRewardGoesTo = whoIsWinner(history[stepNumber]);
          </div>
         </>
       
-        //     theRewardGoesTo ? 'Winner: '  + theRewardGoesTo : 'Your Turn: ' + (movementX ? 'X' : 'O')
-        //     {returnBack()}
-        //    `TheChamp: ${theRewardGoesTo} Your Turn: ${(movementX ? 'X' : 'O')}`
+      
     )
 }
 
